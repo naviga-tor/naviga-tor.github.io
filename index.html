@@ -28,14 +28,14 @@
 
     <div id="content_main" class="inner">
       <p>NavigaTor facilitates large-scale measurements on the live Tor network, without stressing it. To this end, NavigaTor includes a custom Tor path generator and measures Round-Trip-Time (RTT), Time-To-First-Byte (TTFB), and throughput of Tor circuits.</p>
-      <p>NavigaTor was used to produce results for the paper "NavigaTor: Finding Faster Paths to Anonymity" by <a href="http://www.nt.tuwien.ac.at/about-us/staff/robert-annessi/">Robert Annessi</a> and <a href="https://www.sba-research.org/team/seniorstaff/martin-schmiedecker/">Martin Schmiedecker</a>. The paper is to appear in the proceedings of the <a href="http://www.ieee-security.org/TC/EuroSP2016/">1st IEEE European Symposium on Security and Privacy</a> (Euro SP 2016).</p>
+      <p>NavigaTor was used to produce results for the paper “NavigaTor: Finding Faster Paths to Anonymity” by <a href="http://www.nt.tuwien.ac.at/about-us/staff/robert-annessi/">Robert Annessi</a> and <a href="https://www.sba-research.org/team/seniorstaff/martin-schmiedecker/">Martin Schmiedecker</a>. The paper is to appear in the proceedings of the <a href="http://www.ieee-security.org/TC/EuroSP2016/">1st IEEE European Symposium on Security and Privacy</a> (Euro SP 2016).</p>
     </div>
 
   
     <div id="content_source" class="inner">
       <h2 id="source">Source code</h2>
       <p>The <a href="https://github.com/naviga-tor/navigator">source code</a> is published under a free license (<a href="https://www.gnu.org/licenses/gpl-2.0.en.html">GPLv2</a>) and can be obtained with:</p>
-      <p><code>git clone https://github.com/naviga-tor/navigator.git navigator</code></p>
+      <p><code>git clone https://github.com/naviga-tor/navigator.git</code></p>
 
       <h4>NavigaTor.py</h4>
       <p><a href="https://github.com/naviga-tor/navigator/blob/master/NavigaTor.py">NavigaTor.py</a> measures Round-Trip-Time (RTT), Time-To-First-Byte (TTFB), and 
@@ -55,7 +55,7 @@ A <a href="http://sourceforge.net/projects/navigator2/files/tor/download">patche
       <p><code>./NavigaTor.py</code></p>
 		<p>By default, NavigaTor connects to a local Tor client on TCP port 9051 
 		and builds one circuit using a single thread. RTT, TTFB, and throughput for this circuit are
-		each measured one time. Measurement data is written to files prefixed "probe_".</p>
+		each measured one time. Measurement data are written to files prefixed “probe_”.</p>
 
 		<p>Various command line options can be used to control NavigaTor.py:</p>
       <table>
@@ -92,7 +92,7 @@ A <a href="http://sourceforge.net/projects/navigator2/files/tor/download">patche
           </tr>
           <tr>
   	         <td>--output</td>
-	         <td>Name prefix for output files. (Default: "probe_")</td>
+	         <td>Name prefix for output files. (Default: “probe_”)</td>
           </tr>
           <tr>
 	         <td>--network-protection</td>
@@ -124,21 +124,21 @@ A <a href="http://sourceforge.net/projects/navigator2/files/tor/download">patche
 
     <div id="content_data" class="inner">
       <h2 id="data">Measurement data</h2>
-      <p>Gathered <a href="http://sourceforge.net/projects/navigator2/files/NavigaTor.tar.lz/download">measurement data</a> (608MB Lzip compressed) is provided under a free license (<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a>). 
+      <p>Gathered <a href="http://sourceforge.net/projects/navigator2/files/NavigaTor.tar.lz/download">measurement data</a> (608MB Lzip compressed) are provided under a free license (<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a>). 
       The data format, JSON, is human readable and an open standard; libraries for parsing exist for virtually every programming language. 
-      Raw (untruncated, serialized) measurement data is available on request (~30GB compressed).</p>
+      Raw (untruncated, serialized) measurement data are available on request (~30GB compressed).</p>
       
       <h4>Directory structure</h4>
       <ul>
-	     <li>"planetlab_latency" contains 19 files. Each file corresponds
+	     <li>“planetlab_latency” contains 19 files. Each file corresponds
 to a single measurement run conducted on one Planetlab host. See paper
 Sections 7.2 (Statistical Analysis), 7.3 (Latency Evaluation), and
 7.4 (Anonymity Evaluation) for details on the measurements.</li>
-	     <li>"planetlab_throughput" contains 7 files. Each file corresponds
+	     <li>“planetlab_throughput” contains 7 files. Each file corresponds
 to a single measurement run conducted on one Planetlab host. See paper
 Section 7.5 (Throughput Evaluation) for details on the measurements.</li>
-	     <li>"single_host" contains 2 files: "single-host_latency.json"
-corresponds to latency measurements and "single-host_throughput.json" to
+	     <li>“single_host” contains 2 files: “single-host_latency.json”
+corresponds to latency measurements and “single-host_throughput.json” to
 throughput measurements. See paper Sections 7.6 (Congestion-Aware Scheme)
 and 7.7 (Latency over Time) for details on the measurement.</li>
       </ul>
@@ -152,15 +152,15 @@ and 7.7 (Latency over Time) for details on the measurement.</li>
 	     <li>exit node's fingerprint</li>
 	     <li>CBT in milliseconds</li>
 	     <li>(calculated) CBT percentile</li>
-	     <li>(whether backup data has been used for calculating CBT percentile)</li>
+	     <li>(whether backup data have been used for calculating CBT percentile)</li>
 	     <li>list of RTTs in milliseconds</li>
 	     <li>(calculated) First-RTT percentile</li>
-	     <li>(whether backup data has been used for calculating First-RTT percentile)</li>
+	     <li>(whether backup data have been used for calculating First-RTT percentile)</li>
 	     <li>list of TTFBs in milliseconds</li>
 	     <li>list of throughput measurements in Mbit/s</li>
 	     <li>(calculated) congestion delay</li>
 	     <li>(calculated) congestion delay percentile</li>
-	     <li>(whether backup data has been used for calculating congestion delay percentile)</li>
+	     <li>(whether backup data have been used for calculating congestion delay percentile)</li>
       </ol>
 
       <h4>readdata.py</h4>
