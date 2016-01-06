@@ -34,21 +34,21 @@
   
     <div id="content_source" class="inner">
       <h2 id="source">Source code</h2>
-      <p>The <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/">source code</a> is published under a free license (<a href="https://www.gnu.org/licenses/gpl-2.0.en.html">GPLv2</a>) and can be obtained with:</p>
-      <p><code>git clone http://git.code.sf.net/p/navigator2/code navigator</code></p>
+      <p>The <a href="https://github.com/naviga-tor/navigator">source code</a> is published under a free license (<a href="https://www.gnu.org/licenses/gpl-2.0.en.html">GPLv2</a>) and can be obtained with:</p>
+      <p><code>git clone https://github.com/naviga-tor/navigator.git navigator</code></p>
 
       <h4>NavigaTor.py</h4>
-      <p><a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/NavigaTor.py">NavigaTor.py</a> measures Round-Trip-Time (RTT), Time-To-First-Byte (TTFB), and 
+      <p><a href="https://github.com/naviga-tor/navigator/blob/master/NavigaTor.py">NavigaTor.py</a> measures Round-Trip-Time (RTT), Time-To-First-Byte (TTFB), and 
 throughput of Tor circuits. Measurement results are written as serialized, 
 LZO-compressed objects to files for further processing. 
 Besides a Python interpreter, the following Python libraries are required: 
 pkg_resources, lzo, stem, and pycurl.</p>
 
-      <p id="patch">Before running NavigaTor, a (patched) Tor client must be started with the provided <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/torrc">configuration</a>:</p>
+      <p id="patch">Before running NavigaTor, a (patched) Tor client must be started with the provided <a href="https://github.com/naviga-tor/navigator/blob/master/torrc">configuration</a>:</p>
       <p><code>./tor -f torrc</code></p>
       <p>The Tor client needs to be of the 0.2.3.x series and must be patched 
-with the <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-dumpguards.patch">dumpguards</a>, <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-log_cbt.patch">log_cbt</a>, <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-descriptors.patch">descriptors</a> and 
-<a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-findpath.patch">findpath</a> patches. 
+with the <a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-dumpguards.patch">dumpguards</a>, <a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-log_cbt.patch">log_cbt</a>, <a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-descriptors.patch">descriptors</a> and 
+<a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-findpath.patch">findpath</a> patches. 
 A <a href="http://sourceforge.net/projects/navigator2/files/tor/download">patched Tor client binary</a> for x86 is provided with statically linked OpenSSL, libevent, and Zlib libraries. 
 
       <p>A run of NavigaTor might look as simple as this:</p>
@@ -106,17 +106,17 @@ A <a href="http://sourceforge.net/projects/navigator2/files/tor/download">patche
       </table>
 
       <h4>testdata.py</h4>
-      <p>After NavigaTor.py ran successfully, its output can be verified using <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/testdata.py">testdata.py</a>. 
+      <p>After NavigaTor.py ran successfully, its output can be verified using <a href="https://github.com/naviga-tor/navigator/blob/master/testdata.py">testdata.py</a>. 
       A typical run might look like this:</p>
       <p><code>cat probe_001 | ./testdata.py</code></p>
 
       <h4>truncatedata.py</h4>
-      <p><a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/truncatedata.py">truncatedata.py</a> truncates data from NavigaTor measurements. 
+      <p><a href="https://github.com/naviga-tor/navigator/blob/master/truncatedata.py">truncatedata.py</a> truncates data from NavigaTor measurements. 
       A typical run might look like this:</p>
       <p><code>cat probe_001 | ./truncatedata.py 1> probe_001.e</code></p>
 
       <h4>merge.py</h4>
-      <p><a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/merge.py">merge.py</a> both merges multiple truncated measurement data files into one and sorts measurements by date. 
+      <p><a href="https://github.com/naviga-tor/navigator/blob/master/merge.py">merge.py</a> both merges multiple truncated measurement data files into one and sorts measurements by date. 
       A typical run might look like this:</p>
       <p><code>./merge.py probe_001.e probe_002.e probe_003.e 1> probe</code></p>
     </div>
@@ -164,7 +164,7 @@ and 7.7 (Latency over Time) for details on the measurement.</li>
       </ol>
 
       <h4>readdata.py</h4>
-      <p>A <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/readdata.py">simple script</a> showing how to read the provided measurement data.</p>
+      <p>A <a href="https://github.com/naviga-tor/navigator/blob/master/readdata.py">simple script</a> showing how to read the provided measurement data.</p>
   </div>
 
   
@@ -175,11 +175,11 @@ default path selection algorithm. To this end, only small, non-intrusive changes
 were made to Tor’s source code. This ensures that, given the same consensus
 data, the path generator produces the same paths as Tor would and also keeps 
 to changes portable to other versions of the Tor software.</p>
-    <p>Although the path generator is included in NavigaTor.py, we provide a <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/pathgen.py">simple example</a>, 
+    <p>Although the path generator is included in NavigaTor.py, we provide a <a href="https://github.com/naviga-tor/navigator/blob/master/pathgen.py">simple example</a>, 
 which shows that it also can be used independently:</p>
       <p><code>./pathgen.py</code></p>
     <p>Like Navigator.py, the path generator also depends on a <a href="#patch">patched Tor client</a>; 
-however, it only depends on the <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-findpath.patch">findpath</a> patch strictly.</p> 
+however, it only depends on the <a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-findpath.patch">findpath</a> patch strictly.</p> 
   </div>
 </div>
 
