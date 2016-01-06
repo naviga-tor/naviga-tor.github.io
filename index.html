@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
+  <title>NavigaTor: Finding Faster Paths to Anonymity</title>
+</head>
+
+<body>
+  <div id='cssmenu'>
+    <ul>
+      <li class='active'><a href='#'>Home</a></li>
+      <li><a href='#source'>Source Code</a></li>
+      <li><a href='#data'>Measurement Data</a></li>
+      <li><a href='#pathgen'>Tor Path Generator</a></li>
+    </ul>
+  </div>
+
+  <div id="header_wrap" class="outer">
+    <header class="inner">
+      <h1 id="project_title">NavigaTor</h1>
+      <h2 id="project_tagline">Finding Faster Paths to Anonymity</h2>
+    </header>
+  </div>
+
+
+  <div id="content_wrap" class="outer">
+
+    <div id="content_main" class="inner">
+      <p>NavigaTor facilitates large-scale measurements on the live Tor network, without stressing it. To this end, NavigaTor includes a custom Tor path generator and measures Round-Trip-Time (RTT), Time-To-First-Byte (TTFB), and throughput of Tor circuits.</p>
+      <p>NavigaTor was used to produce results for the paper "NavigaTor: Finding Faster Paths to Anonymity" by <a href="http://www.nt.tuwien.ac.at/about-us/staff/robert-annessi/">Robert Annessi</a> and <a href="https://www.sba-research.org/team/seniorstaff/martin-schmiedecker/">Martin Schmiedecker</a>. The paper is to appear in the proceedings of the <a href="http://www.ieee-security.org/TC/EuroSP2016/">1st IEEE European Symposium on Security and Privacy</a> (Euro SP 2016).</p>
+    </div>
+
+  
+    <div id="content_source" class="inner">
+      <h2 id="source">Source code</h2>
+      <p>The <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/">source code</a> is published under a free license (<a href="https://www.gnu.org/licenses/gpl-2.0.en.html">GPLv2</a>) and can be obtained with:</p>
+      <p><code>git clone http://git.code.sf.net/p/navigator2/code navigator</code></p>
+
+      <h4>NavigaTor.py</h4>
+      <p><a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/NavigaTor.py">NavigaTor.py</a> measures Round-Trip-Time (RTT), Time-To-First-Byte (TTFB), and 
+throughput of Tor circuits. Measurement results are written as serialized, 
+LZO-compressed objects to files for further processing. 
+Besides a Python interpreter, the following Python libraries are required: 
+pkg_resources, lzo, stem, and pycurl.</p>
+
+      <p id="patch">Before running NavigaTor, a (patched) Tor client must be started with the provided <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/torrc">configuration</a>:</p>
+      <p><code>./tor -f torrc</code></p>
+      <p>The Tor client needs to be of the 0.2.3.x series and must be patched 
+with the <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-dumpguards.patch">dumpguards</a>, <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-log_cbt.patch">log_cbt</a>, <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-descriptors.patch">descriptors</a> and 
+<a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-findpath.patch">findpath</a> patches. 
+A <a href="http://sourceforge.net/projects/navigator2/files/tor/download">patched Tor client binary</a> for x86 is provided with statically linked OpenSSL, libevent, and Zlib libraries. 
+
+      <p>A run of NavigaTor might look as simple as this:</p>
+      <p><code>./NavigaTor.py</code></p>
+		<p>By default, NavigaTor connects to a local Tor client on TCP port 9051 
+		and builds one circuit using a single thread. RTT, TTFB, and throughput for this circuit are
+		each measured one time. Measurement data is written to files prefixed "probe_".</p>
+
+		<p>Various command line options can be used to control NavigaTor.py:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>--circuits</td>
+	         <td>Number of circuits to build and measure. (Default: 1)</td>
+          </tr>
+          <tr>
+            <td>--rttprobes</td>
+            <td>Number of RTT measurements on each circuit. (Default: 1)</td>
+          </tr>
+          <tr>
+	         <td>--ttfbprobes</td>
+	         <td>Number of TTFB measurements on each circuit. (Default: 1)</td>
+          </tr>
+          <tr>
+	         <td>--bwprobes</td>
+	         <td>Number of throughput measurements on each circuit. (Default: 1)</td>
+          </tr>
+          <tr>
+  	         <td>--probesleep</td>
+  	         <td>Waiting interval between probes in seconds. (Default: 0.0)</td>
+          </tr>
+          <tr>
+	         <td>--threads</td>
+	         <td>Number of parallel measurement threads. (Default: 1)</td>
+          </tr>
+          <tr>
+  	         <td>--output</td>
+	         <td>Name prefix for output files. (Default: "probe_")</td>
+          </tr>
+          <tr>
+	         <td>--network-protection</td>
+	         <td>Prevent hammering the Tor network. (Default: Enabled)</td>
+          </tr>
+          <tr>
+  	         <td>--port</td>
+  	         <td>Control port of the Tor client. (Default: 9051)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>testdata.py</h4>
+      <p>After NavigaTor.py ran successfully, its output can be verified using <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/testdata.py">testdata.py</a>. 
+      A typical run might look like this:</p>
+      <p><code>cat probe_001 | ./testdata.py</code></p>
+
+      <h4>truncatedata.py</h4>
+      <p><a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/truncatedata.py">truncatedata.py</a> truncates data from NavigaTor measurements. 
+      A typical run might look like this:</p>
+      <p><code>cat probe_001 | ./truncatedata.py 1> probe_001.e</code></p>
+
+      <h4>merge.py</h4>
+      <p><a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/merge.py">merge.py</a> both merges multiple truncated measurement data files into one and sorts measurements by date. 
+      A typical run might look like this:</p>
+      <p><code>./merge.py probe_001.e probe_002.e probe_003.e 1> probe</code></p>
+    </div>
+  
+
+    <div id="content_data" class="inner">
+      <h2 id="data">Measurement data</h2>
+      <p>Gathered <a href="http://sourceforge.net/projects/navigator2/files/NavigaTor.tar.lz/download">measurement data</a> (608MB Lzip compressed) is provided under a free license (<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a>). 
+      The data format, JSON, is human readable and an open standard; libraries for parsing exist for virtually every programming language. 
+      Raw (untruncated, serialized) measurement data is available on request (~30GB compressed).</p>
+      
+      <h4>Directory structure</h4>
+      <ul>
+	     <li>"planetlab_latency" contains 19 files. Each file corresponds
+to a single measurement run conducted on one Planetlab host. See paper
+Sections 7.2 (Statistical Analysis), 7.3 (Latency Evaluation), and
+7.4 (Anonymity Evaluation) for details on the measurements.</li>
+	     <li>"planetlab_throughput" contains 7 files. Each file corresponds
+to a single measurement run conducted on one Planetlab host. See paper
+Section 7.5 (Throughput Evaluation) for details on the measurements.</li>
+	     <li>"single_host" contains 2 files: "single-host_latency.json"
+corresponds to latency measurements and "single-host_throughput.json" to
+throughput measurements. See paper Sections 7.6 (Congestion-Aware Scheme)
+and 7.7 (Latency over Time) for details on the measurement.</li>
+      </ul>
+
+      <h4>Data format</h4>
+      <p>Every line represents the measurement of one circuit in JSON format, containing the following items:</p>
+      <ol>
+	     <li>date of measurement</li>
+	     <li>entry node's fingerprint</li>
+	     <li>middle node's fingerprint</li>
+	     <li>exit node's fingerprint</li>
+	     <li>CBT in milliseconds</li>
+	     <li>(calculated) CBT percentile</li>
+	     <li>(whether backup data has been used for calculating CBT percentile)</li>
+	     <li>list of RTTs in milliseconds</li>
+	     <li>(calculated) First-RTT percentile</li>
+	     <li>(whether backup data has been used for calculating First-RTT percentile)</li>
+	     <li>list of TTFBs in milliseconds</li>
+	     <li>list of throughput measurements in Mbit/s</li>
+	     <li>(calculated) congestion delay</li>
+	     <li>(calculated) congestion delay percentile</li>
+	     <li>(whether backup data has been used for calculating congestion delay percentile)</li>
+      </ol>
+
+      <h4>readdata.py</h4>
+      <p>A <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/readdata.py">simple script</a> showing how to read the provided measurement data.</p>
+  </div>
+
+  
+  <div id="content_pathgen" class="inner">
+    <h2 id="pathgen">Tor path generator</h2>
+    <p>NavigaTor includes a custom Tor path generator that is identical to Tor’s
+default path selection algorithm. To this end, only small, non-intrusive changes
+were made to Tor’s source code. This ensures that, given the same consensus
+data, the path generator produces the same paths as Tor would and also keeps 
+to changes portable to other versions of the Tor software.</p>
+    <p>Although the path generator is included in NavigaTor.py, we provide a <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/pathgen.py">simple example</a>, 
+which shows that it also can be used independently:</p>
+      <p><code>./pathgen.py</code></p>
+    <p>Like Navigator.py, the path generator also depends on a <a href="#patch">patched Tor client</a>; 
+however, it only depends on the <a href="http://sourceforge.net/p/navigator2/code/ci/master/tree/patches/tor-findpath.patch">findpath</a> patch strictly.</p> 
+  </div>
+</div>
+
+</body>
+</html>
