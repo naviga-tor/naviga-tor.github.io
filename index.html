@@ -50,8 +50,9 @@ pkg_resources, lzo, stem, and pycurl.</p>
 with the <a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-dumpguards.patch">dumpguards</a>, <a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-log_cbt.patch">log_cbt</a>, <a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-descriptors.patch">descriptors</a> and 
 <a href="https://github.com/naviga-tor/navigator/blob/master/patches/tor-findpath.patch">findpath</a> patches. 
 A <a href="http://hypnotoad.ifs.tuwien.ac.at/navigator/tor">patched Tor client binary</a> for x86 is provided with statically linked OpenSSL, libevent, and Zlib libraries. 
+If you have troubles running any of the scripts below, you can use our <a href="http://hypnotoad.ifs.tuwien.ac.at/navigator/NavigaTor_chroot.tar.lz">Linux chroot environment</a> that contains all necessary dependencies.</p>
 
-      <p>A run of NavigaTor might look as simple as this:</p>
+      <p>A run of NavigaTor may look as simple as this:</p>
       <p><code>./NavigaTor.py</code></p>
 		<p>By default, NavigaTor connects to a local Tor client on TCP port 9051 
 		and builds one circuit using a single thread. RTT, TTFB, and throughput for this circuit are
@@ -107,18 +108,33 @@ A <a href="http://hypnotoad.ifs.tuwien.ac.at/navigator/tor">patched Tor client b
 
       <h4>testdata.py</h4>
       <p>After NavigaTor.py ran successfully, its output can be verified using <a href="https://github.com/naviga-tor/navigator/blob/master/testdata.py">testdata.py</a>. 
-      A typical run might look like this:</p>
+      A typical run may look like this:</p>
       <p><code>cat probe_001 | ./testdata.py</code></p>
 
       <h4>truncatedata.py</h4>
       <p><a href="https://github.com/naviga-tor/navigator/blob/master/truncatedata.py">truncatedata.py</a> truncates data from NavigaTor measurements. 
-      A typical run might look like this:</p>
+      A typical run may look like this:</p>
       <p><code>cat probe_001 | ./truncatedata.py 1> probe_001.e</code></p>
 
       <h4>merge.py</h4>
       <p><a href="https://github.com/naviga-tor/navigator/blob/master/merge.py">merge.py</a> both merges multiple truncated measurement data files into one and sorts measurements by date. 
-      A typical run might look like this:</p>
+      A typical run may look like this:</p>
       <p><code>./merge.py probe_001.e probe_002.e probe_003.e 1> probe</code></p>
+
+      <h4>cat.py</h4>
+      <p><a href="https://github.com/naviga-tor/navigator/blob/master/cat.py">cat.py</a> calculates the congestion delay for circuit. 
+      A typical run may look like this:</p>
+      <p><code>./cat.py --input probe --output probe.cat</code></p>
+      
+      <h4>r9.py</h4>
+      <p><a href="https://github.com/naviga-tor/navigator/blob/master/r9.py">r9.py</a> adds statistical information to circuit probes. 
+      A typical run may look like this:</p>
+      <p><code>./r9.py --input probe.cat --output probe.stat</code></p>
+      
+      <h4>json_export.py</h4>
+      <p><a href="https://github.com/naviga-tor/navigator/blob/master/json_export.py">json_export.py</a> converts NavigaTor measurements to JSON format. 
+      A typical run may look like this:</p>
+      <p><code>./json_export.py --input probe.stat --output probe.json</code></p>
     </div>
   
 
